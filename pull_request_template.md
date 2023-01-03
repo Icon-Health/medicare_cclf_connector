@@ -1,21 +1,33 @@
 ## Describe your changes
-Removed the default variables:
 
-- source_name
-- input_database
-- input_schema
+Please include a summary of any changes.
 
-## Testing
-n/a
+## How has this been tested?
+
+Please describe the tests you ran to verify your changes.  Provide instructions to reproduce or code to reproduce output.
+
+## Reviewer focus
+
+Please summarize the specific items you’d like the reviewer(s) to look into.
 
 ## Checklist before requesting a review
-- [] I have performed a self-review of my code
-- [] My code follows style guidelines
-- [] I have commented my code as necessary 
-- [] I have made corresponding changes to documentation
-- [] My code runs without errors
-- [] I have implemented primary key tests
-- [] Every model has a corresponding yml file
-- [] I have generated the DAG locally with dbt and updated the files in the `docs/` path
 
-## Gif of how this PR makes you feel
+- [ ]  I have recorded a Loom performing a self-review of my code
+- [ ]  My code follows style guidelines
+- [ ]  I have commented my code as necessary
+- [ ]  I have tested my code by running `dbt build` in the following warehouse(s):
+    - [ ]  Snowflake
+    - [ ]  Redshift
+- [ ]  I have implemented generic dbt tests to validate primary keys/uniqueness in my model
+- [ ]  I have updated dbt docs by running `dbt docs generate` and copying the appropriate files to the `docs/` path
+- [ ]  I have added at least one Github label to this PR
+
+## (Optional) Gif of how this PR makes you feel
+
+![](url)
+
+## Loom link
+
+## For reviewers
+
+[Best practices for reviewing pull requests.](https://www.notion.so/Pull-Request-Review-Best-Practices-b486354d76c04982889f2178fe777c1c)

@@ -1,14 +1,11 @@
-name: 'medicare_claims_connector'
+name: 'medicare_cclf_connector'
 version: '1.0.0'
 config-version: 2
 
 # This setting configures which "profile" dbt uses for this project.
-profile: 'tuva'                         # configuration required
+profile: 'default'                       # configuration required
 
 vars:
-  source_name: cclf                     # configuration required
-                                        # name describing the dataset feeding this project
-
   input_database: medicare_claims       # configuration required
                                         # name of the database where sources feeding this project are stored
 
@@ -21,13 +18,14 @@ vars:
   output_schema: claims_input           # configuration required
                                         # name of the schema where output of this project should be written
 
-  beneficiary_demographics: "{{ source(var('source_name'),'beneficiary_demographics') }}"
-  parta_claims_header: "{{ source(var('source_name'),'parta_claims_header') }}"
-  parta_claims_revenue_center_detail: "{{ source(var('source_name'),'parta_claims_revenue_center_detail') }}"
-  parta_diagnosis_code: "{{ source(var('source_name'),'parta_diagnosis_code') }}"
-  parta_procedure_code: "{{ source(var('source_name'),'parta_procedure_code') }}"
-  partb_physicians: "{{ source(var('source_name'),'partb_physicians') }}"
-  partb_dme: "{{ source(var('source_name'),'partb_dme') }}"
+  beneficiary_demographics: "{{ source('cclf','beneficiary_demographics') }}"
+  parta_claims_header: "{{ source('cclf','parta_claims_header') }}"
+  parta_claims_revenue_center_detail: "{{ source('cclf','parta_claims_revenue_center_detail') }}"
+  parta_diagnosis_code: "{{ source('cclf','parta_diagnosis_code') }}"
+  parta_procedure_code: "{{ source('cclf','parta_procedure_code') }}"
+  partb_physicians: "{{ source('cclf','partb_physicians') }}"
+  partb_dme: "{{ source('cclf','partb_dme') }}"
+
 # These configurations specify where dbt should look for different types of files.
 # The `source-paths` config, for example, states that models in this project can be
 # found in the "models/" directory. You probably won't need to change these!
@@ -42,7 +40,6 @@ target-path: "target"  # directory which will store compiled SQL files
 clean-targets:         # directories to be removed by `dbt clean`
   - "target"
   - "dbt_packages"
-
 
 # Configuring models
 # Full documentation: https://docs.getdbt.com/docs/configuring-models
