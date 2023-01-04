@@ -12,7 +12,8 @@ with demographics as (
         , bene_race_cd
         , bene_dob
         , bene_death_dt
-        , {{ try_to_cast_date('bene_member_month', 'YYYY-MM-DD') }} as bene_member_month
+        --, {{ try_to_cast_date('BENE_MEMEBER_MONTH', 'YYYY-MM-DD') }} as bene_member_month
+        ,cast(SUBSTRING(BENE_MEMEBER_MONTH, 1,  4) || '-' || SUBSTRING(BENE_MEMEBER_MONTH, 5,  2) || '-' || SUBSTRING(BENE_MEMEBER_MONTH, 7,  2) as date) as bene_member_month
         , bene_dual_stus_cd
         , bene_mdcr_stus_cd
         , bene_1st_name
@@ -121,18 +122,18 @@ joined as (
           {{ cast_string_or_varchar('enrollment_span.bene_mbi_id') }} as patient_id
         , {{ cast_string_or_varchar('NULL') }} as member_id
         , case demographics.bene_sex_cd
-            when '0' then 'unknown'
-            when '1' then 'male'
-            when '2' then 'female'
+            when 0 then 'unknown'
+            when 1 then 'male'
+            when 2 then 'female'
           end as gender
         , case demographics.bene_race_cd
-            when '0' then 'unknown'
-            when '1' then 'white'
-            when '2' then 'black'
-            when '3' then 'other'
-            when '4' then 'asian'
-            when '5' then 'hispanic'
-            when '6' then 'north american native'
+            when 0 then 'unknown'
+            when 1 then 'white'
+            when 2 then 'black'
+            when 3 then 'other'
+            when 4 then 'asian'
+            when 5 then 'hispanic'
+            when 6 then 'north american native'
           end as race
         , {{ try_to_cast_date('demographics.bene_dob', 'YYYY-MM-DD') }} as birth_date
         , {{ try_to_cast_date('demographics.bene_death_dt', 'YYYY-MM-DD') }} as death_date

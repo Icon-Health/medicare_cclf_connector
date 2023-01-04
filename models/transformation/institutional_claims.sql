@@ -20,7 +20,7 @@ select
       as bill_type_code
     , {{ cast_string_or_varchar('h.dgns_drg_cd') }} as ms_drg_code
     , {{ cast_string_or_varchar('d.clm_line_prod_rev_ctr_cd') }} as revenue_center_code
-    , cast(d.clm_line_srvc_unit_qty as integer) as service_unit_quantity
+    , cast(d.clm_line_srvc_unit_qty as numeric) as service_unit_quantity
     , {{ cast_string_or_varchar('d.clm_line_hcpcs_cd') }} as hcpcs_code
     , {{ cast_string_or_varchar('d.hcpcs_1_mdfr_cd') }} as hcpcs_modifier_1
     , {{ cast_string_or_varchar('d.hcpcs_2_mdfr_cd') }} as hcpcs_modifier_2
@@ -33,7 +33,8 @@ select
     , cast(NULL as date) as paid_date
     , {{ cast_numeric('h.clm_pmt_amt') }} as paid_amount
     , {{ cast_numeric('NULL') }} as allowed_amount
-    , {{ cast_numeric('h.clm_mdcr_instnl_tot_chrg_amt') }} as charge_amount
+    --, {{ cast_numeric('h.clm_mdcr_instnl_tot_chrg_amt') }} as charge_amount
+    , {{ cast_numeric('NULL') }} as charge_amount
     , {{ cast_string_or_varchar('dx.dgns_prcdr_icd_ind') }} as diagnosis_code_type
     , {{ cast_string_or_varchar('dx.diagnosis_code_1') }} as diagnosis_code_1
     , {{ cast_string_or_varchar('dx.diagnosis_code_2') }} as diagnosis_code_2
