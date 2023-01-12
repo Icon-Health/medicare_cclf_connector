@@ -28,7 +28,7 @@ with demographics as (
 
 medicare_state_fips as (
 
-    select * from {{ ref('medicare_state_fips') }}
+    select fips_code, description as state from `fiery-pipe-330412.auxilium_tuva_core_terminology.fips_state`
 
 ),
 
