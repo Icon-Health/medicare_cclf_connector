@@ -37,7 +37,7 @@ with detail_line as(
         --, {{ cast_numeric('h.clm_mdcr_instnl_tot_chrg_amt') }} as charge_amount
         , {{ cast_numeric('NULL') }} as charge_amount
         , {{ cast_string_or_varchar('dx.dgns_prcdr_icd_ind') }} as diagnosis_code_type
-        , {{ cast_string_or_varchar('dx.diagnosis_code_1') }} as diagnosis_code_1
+        , {{ cast_string_or_varchar('h.PRNCPL_DGNS_CD') }} as diagnosis_code_1
         , {{ cast_string_or_varchar('dx.diagnosis_code_2') }} as diagnosis_code_2
         , {{ cast_string_or_varchar('dx.diagnosis_code_3') }} as diagnosis_code_3
         , {{ cast_string_or_varchar('dx.diagnosis_code_4') }} as diagnosis_code_4
@@ -182,7 +182,7 @@ header_only as (
         , {{ cast_numeric('NULL') }} as allowed_amount
         , {{ cast_numeric('NULL') }} as charge_amount
         , cast (NULL as string) as diagnosis_code_type     
-        , cast (NULL as string) as diagnosis_code_1        
+        , cast (PRNCPL_DGNS_CD as string) as diagnosis_code_1        
         , cast (NULL as string) as diagnosis_code_2        
         , cast (NULL as string) as diagnosis_code_3        
         , cast (NULL as string) as diagnosis_code_4        
@@ -287,11 +287,11 @@ header_only as (
     from (
         select  h.CUR_CLM_UNIQ_ID, h.CLM_PMT_AMT, h.bene_mbi_id, h.clm_from_dt, h.clm_thru_dt, h.clm_admsn_src_cd,h.clm_admsn_type_cd, h.bene_ptnt_stus_cd, h.dgns_drg_cd
         ,cast( clm_bill_fac_type_cd as string ) || cast( clm_bill_clsfctn_cd as string )|| cast( clm_bill_clsfctn_cd as string ) as bill_type_code
-        ,sum(d.CLM_LINE_CVRD_PD_AMT) as sumline
+        ,sum(d.CLM_LINE_CVRD_PD_AMT) as sumline, h.PRNCPL_DGNS_CD
         from `fiery-pipe-330412.auxilium.parta_claims_header`  h
         inner join `fiery-pipe-330412.auxilium.parta_claims_revenue_center_detail`  d
         on h.cur_clm_uniq_id = d.cur_clm_uniq_id
-        group by h.CUR_CLM_UNIQ_ID, h.CLM_PMT_AMT, h.bene_mbi_id, h.clm_from_dt, h.clm_thru_dt, h.clm_admsn_src_cd, h.clm_admsn_type_cd, h.bene_ptnt_stus_cd, clm_bill_fac_type_cd, clm_bill_clsfctn_cd, clm_bill_clsfctn_cd, h.dgns_drg_cd
+        group by h.CUR_CLM_UNIQ_ID, h.CLM_PMT_AMT, h.bene_mbi_id, h.clm_from_dt, h.clm_thru_dt, h.clm_admsn_src_cd, h.clm_admsn_type_cd, h.bene_ptnt_stus_cd, clm_bill_fac_type_cd, clm_bill_clsfctn_cd, clm_bill_clsfctn_cd, h.dgns_drg_cd, h.PRNCPL_DGNS_CD
         having sumline = 0
     )
 ), 
