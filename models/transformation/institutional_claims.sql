@@ -288,8 +288,8 @@ header_only as (
         select  h.CUR_CLM_UNIQ_ID, h.CLM_PMT_AMT, h.bene_mbi_id, h.clm_from_dt, h.clm_thru_dt, h.clm_admsn_src_cd,h.clm_admsn_type_cd, h.bene_ptnt_stus_cd, h.dgns_drg_cd
         ,cast( clm_bill_fac_type_cd as string ) || cast( clm_bill_clsfctn_cd as string )|| cast( clm_bill_clsfctn_cd as string ) as bill_type_code
         ,sum(d.CLM_LINE_CVRD_PD_AMT) as sumline, h.PRNCPL_DGNS_CD
-        from `fiery-pipe-330412.auxilium.parta_claims_header`  h
-        inner join `fiery-pipe-330412.auxilium.parta_claims_revenue_center_detail`  d
+        from `ferrous-weaver-306014.auxilium.parta_claims_header`  h
+        inner join `ferrous-weaver-306014.auxilium.parta_claims_revenue_center_detail`  d
         on h.cur_clm_uniq_id = d.cur_clm_uniq_id
         group by h.CUR_CLM_UNIQ_ID, h.CLM_PMT_AMT, h.bene_mbi_id, h.clm_from_dt, h.clm_thru_dt, h.clm_admsn_src_cd, h.clm_admsn_type_cd, h.bene_ptnt_stus_cd, clm_bill_fac_type_cd, clm_bill_clsfctn_cd, clm_bill_clsfctn_cd, h.dgns_drg_cd, h.PRNCPL_DGNS_CD
         having sumline = 0

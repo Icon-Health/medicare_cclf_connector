@@ -6,13 +6,13 @@ config-version: 2
 profile: 'default'                       # configuration required
 
 vars:
-  input_database: fiery-pipe-330412       # configuration required
+  input_database: ferrous-weaver-306014       # configuration required
                                         # name of the database where sources feeding this project are stored
 
   input_schema:  auxilium                   # configuration required
                                         # name of the schema where sources feeding this project is stored
 
-  output_database: fiery-pipe-330412                 # configuration required
+  output_database: ferrous-weaver-306014                 # configuration required
                                         # name of the database where output of this project should be written
 
   output_schema: auxilium_connector           # configuration required

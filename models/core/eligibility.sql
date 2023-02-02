@@ -16,19 +16,19 @@ with demographics as (
         ,cast(SUBSTRING(BENE_MEMEBER_MONTH, 1,  4) || '-' || SUBSTRING(BENE_MEMEBER_MONTH, 5,  2) || '-' || SUBSTRING(BENE_MEMEBER_MONTH, 7,  2) as date) as bene_member_month
         , bene_dual_stus_cd
         , bene_mdcr_stus_cd
-        , bene_1st_name
-        , bene_last_name
-        , bene_line_1_adr
+        , null as bene_1st_name
+        , null as bene_last_name
+        , null as bene_line_1_adr
         , geo_zip_plc_name
         , bene_fips_state_cd
-        , bene_zip_cd
+        , GEO_ZIP5_CD as bene_zip_cd
     from {{ var('beneficiary_demographics') }}
 
 ),
 
 medicare_state_fips as (
 
-    select fips_code, description as state from `fiery-pipe-330412.auxilium_tuva_core_terminology.fips_state`
+    select fips_code, description as state from `ferrous-weaver-306014.LDS_tuva_terminology.fips_state`
 
 ),
 
